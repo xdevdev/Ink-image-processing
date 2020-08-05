@@ -1,14 +1,10 @@
-
 import cv2
 import numpy as np
 
-image = cv2.imread('C:/Users/Admin/Documents/dew/inktest.jpg')
+img1 = cv2.imread("C:/Users/Admin/Documents/dew/inktest.jpg")
+img2 = cv2.imread("C:/Users/Admin/Documents/dew/mask.png")
 
-lower_blue = np.array([110,50,50])
-upper_blue = np.array([220,255,255])
+dst = cv2.addWeighted(img1,1,img2,1,0)
 
-color = cv2.inRange(image, lower_blue, upper_blue)
+cv2.imshow('img_blended' , dst)
 
-image[np.where((image== list(range(lower_blue , upper_blue))).all(axis=2))]=[255,255,255]
-cv2.imshow('imgfinish.png',image)
-    
