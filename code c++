@@ -1,0 +1,24 @@
+Mat testcolor = imread("tulip.jpg", CV_LOAD_IMAGE_COLOR);
+int rows = testcolor.rows;
+int cols = testcolor.cols;
+
+Mat leftimg(rows, cols, CV_8UC3);
+Mat rightimg(rows, cols, CV_8UC3);
+
+cvtColor(testcolor, testcolor, COLOR_RGB2BGR);
+for (int i = 0; i < testcolor.rows; i++) {
+    for (int j = 0; j < testcolor.cols; j++  ){ 
+        leftimg.at<Vec3b>(i, j)[0] = testcolor.at<Vec3b>(i,j)[0];
+        leftimg.at<Vec3b>(i, j)[1] = testcolor.at<Vec3b>(i,j)[0];
+        leftimg.at<Vec3b>(i, j)[2] = testcolor.at<Vec3b>(i,j)[2];
+
+        rightimg.at<Vec3b>(i, j)[0] = testcolor.at<Vec3b>(i, j)[1];
+        rightimg.at<Vec3b>(i, j)[1] = testcolor.at<Vec3b>(i, j)[1];
+        rightimg.at<Vec3b>(i, j)[2] = testcolor.at<Vec3b>(i, j)[2];
+    }
+}
+
+cvtColor(leftimg, leftimg, COLOR_BGR2RGB);
+imwrite("leftimg.png", leftimg);
+cvtColor(rightimg, rightimg, COLOR_BGR2RGB);
+imwrite("rightimg.png", rightimg);
